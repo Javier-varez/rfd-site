@@ -44,7 +44,7 @@ export function PublicBanner() {
         </button>
       </div>
 
-      <Modal dialogStore={dialog} title="Oxide Public RFDs">
+      <Modal dialogStore={dialog} title="T4EQ Public RFDs">
         <div className="space-y-4">
           <p>
             These are the publicly available{' '}
@@ -55,7 +55,7 @@ export function PublicBanner() {
             >
               RFDs
             </Link>{' '}
-            from <ExternalLink href="https://oxide.computer/">Oxide</ExternalLink>. Those
+            from <ExternalLink href="https://t4eq.org/">T4EQ</ExternalLink>. Those
             with access should{' '}
             <Link className="text-accent-secondary hover:text-accent" to="/login">
               sign in
@@ -64,19 +64,7 @@ export function PublicBanner() {
           </p>
           <p>
             We use RFDs both to discuss rough ideas and as a permanent repository for more
-            established ones. You can read more about the{' '}
-            <ExternalLink href="https://oxide.computer/blog/a-tool-for-discussion">
-              tooling around discussions
-            </ExternalLink>
-            .
-          </p>
-          <p>
-            If you're interested in the way we work, and would like to see the process from
-            the inside, check out our{' '}
-            <ExternalLink href="https://oxide.computer/careers">
-              open positions
-            </ExternalLink>
-            .
+            established ones.
           </p>
         </div>
       </Modal>

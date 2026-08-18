@@ -12,7 +12,7 @@ import { fetchRfds } from '~/services/rfd.server'
 
 function url(path: string, lastmod?: Date) {
   const lines = ['  <url>']
-  lines.push(`    <loc>https://rfd.shared.oxide.computer${path}</loc>`)
+  lines.push(`    <loc>https://rfd.t4eq.org${path}</loc>`)
   if (lastmod) lines.push(`    <lastmod>${lastmod.toISOString().slice(0, 10)}</lastmod>`)
   lines.push(`  </url>`)
   return lines.join('\n')

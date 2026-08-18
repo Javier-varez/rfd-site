@@ -30,7 +30,7 @@ export default function Header({ currentRfd }: { currentRfd?: RfdItem }) {
   const { user, rfds, localMode, inlineComments } = useRootLoaderData()
 
   // Show create button in local mode or in production only for logged-in internal users
-  const userIsInternal = user?.groups.some((group) => group === 'oxide-employee')
+  const userIsInternal = user?.groups.some((group) => group === 't4eq-member')
   const showCreateButton = localMode || userIsInternal
 
   const fetcher = useFetcher()
@@ -66,7 +66,7 @@ export default function Header({ currentRfd }: { currentRfd?: RfdItem }) {
             className="t4eq-wordmark text-tertiary bg-secondary border-secondary elevation-1 hover:bg-hover flex h-8 items-center justify-center rounded border"
             aria-label="Back to index"
           >
-            <span>OXIDE</span>
+            <span>T4EQ</span>
             <span aria-hidden="true">/</span>
             <span>RFD</span>
           </Link>

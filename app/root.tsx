@@ -40,8 +40,8 @@ import { buildMeta } from './utils/meta'
 
 export const meta: MetaFunction = () =>
   buildMeta({
-    title: 'RFD | Oxide',
-    description: 'Browse and search Oxide Computer Company Requests for Discussion (RFDs).',
+    title: 'RFD | T4EQ',
+    description: 'Browse and search Tech for Equality Requests for Discussion (RFDs).',
     path: '/',
   })
 
@@ -120,10 +120,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
       <link rel="icon" type="image/png" href="/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       <meta name="color-scheme" content="light" />
-      {/* Use plausible analytics only on Vercel */}
-      {process.env.NODE_ENV === 'production' && (
-        <script defer data-domain="rfd.shared.oxide.computer" src="/js/viewscript.js" />
-      )}
     </head>
     <body className="mb-32">
       <div className="root">{children}</div>

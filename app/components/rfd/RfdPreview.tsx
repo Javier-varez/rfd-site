@@ -19,9 +19,7 @@ dayjs.extend(relativeTime)
 
 const rfdLinkRegexes = [
   /#rfd[-_]?([0-9]{1,4})/i,
-  /^https:\/\/rfd\.shared\.oxide\.computer\/rfd\/(\d+)/,
-  /^https:\/\/([0-9]+)\.rfd\.oxide\.computer/,
-  /(oxide).*rfd\/(\d+)/,
+  /^https:\/\/rfd\.t4eq\.org\/rfd\/(\d+)/,
 ]
 
 export function extractRfdNumber(href: string): number | null {

@@ -31,8 +31,8 @@ import { buildMeta } from '~/utils/meta'
 
 export const meta: MetaFunction = () =>
   buildMeta({
-    title: 'Login | RFD | Oxide',
-    description: 'Log in to view Oxide Requests for Discussion.',
+    title: 'Login | RFD | T4EQ',
+    description: 'Log in to view T4EQ Requests for Discussion.',
     path: '/login',
   })
 

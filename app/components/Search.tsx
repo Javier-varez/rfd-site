@@ -38,7 +38,7 @@ const Search = ({ open, onClose }: { open: boolean; onClose: () => void }) => {
 
   useEffect(() => {
     const { searchClient: client } = instantMeiliSearch(
-      'https://search.rfd.shared.oxide.computer',
+      'https://search.rfd.t4eq.org',
     )
 
     // Overriding search function to implement our custom search backend. We provide a search route

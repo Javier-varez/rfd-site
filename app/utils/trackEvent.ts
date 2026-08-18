@@ -20,23 +20,6 @@ export const trackEvent = (
   referrer: string,
   screenWidth?: number,
 ) => {
-  // Do not track outside of prod
-  if (process.env.NODE_ENV !== 'production') {
-    return
-  }
-
-  const baseUrl = new URL(url).origin
-
-  fetch(`${baseUrl}/api/event`, {
-    method: 'POST',
-    body: JSON.stringify({
-      name: event,
-      domain: 'oxide.computer',
-      url: url,
-      referrer: referrer,
-      screen_width: screenWidth,
-    }),
-  }).catch((err) => {
-    console.log(err)
-  })
+  // No tracking implemented so far
+  return
 }

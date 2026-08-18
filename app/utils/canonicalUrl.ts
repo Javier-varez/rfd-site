@@ -6,7 +6,7 @@
  * Copyright Oxide Computer Company
  */
 
-export const SITE_URL = 'https://rfd.shared.oxide.computer'
+export const SITE_URL = 'https://rfd.t4eq.org'
 
 /**
  * Format an RFD number as a zero-padded 4-digit string (e.g., 53 -> "0053")

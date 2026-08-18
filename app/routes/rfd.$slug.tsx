@@ -124,12 +124,12 @@ export const meta: MetaFunction<typeof loader> = ({ loaderData }) => {
       ? `${loaderData.rfd.number} - ${loaderData.rfd.title}`
       : `${loaderData.rfd.number}`
     return buildMeta({
-      title: `${prefix} | RFD | Oxide`,
+      title: `${prefix} | RFD | T4EQ`,
       path: `/rfd/${loaderData.rfd.formattedNumber}`,
       type: 'article',
     })
   } else {
-    return [{ title: 'Page not found | Oxide' }]
+    return [{ title: 'Page not found | T4EQ' }]
   }
 }
 
@@ -221,7 +221,7 @@ export default function Rfd() {
 
   // This check is merely cosmetic. It hides UI elements that the user does not have access to and
   // which will fail if they try to use
-  const userIsInternal = user?.groups.some((group) => group === 'oxide-employee')
+  const userIsInternal = user?.groups.some((group) => group === 't4eq-member')
 
   const bodyRef = useRef<HTMLDivElement>(null)
 
