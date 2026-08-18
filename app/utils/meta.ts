@@ -63,7 +63,7 @@ export const buildMeta = ({
     { property: 'og:title', content: title },
     { property: 'og:url', content: url },
     { property: 'og:type', content: type },
-    { property: 'og:site_name', content: 'Oxide Computer Company' },
+    { property: 'og:site_name', content: 'Tech for Equality RFDs' },
     { name: 'twitter:title', content: title },
     { tagName: 'link', rel: 'canonical', href: url },
   ]
