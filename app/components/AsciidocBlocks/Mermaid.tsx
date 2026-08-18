@@ -9,26 +9,23 @@
 import mermaid from 'mermaid'
 import { memo, useEffect, useId, useRef, useState } from 'react'
 
-import { useResolvedTheme } from '~/stores/theme'
-
 const Mermaid = memo(function Mermaid({ content }: { content: string }) {
   const [showSource, setShowSource] = useState(false)
   const id = `mermaid-diagram-${useId().replace(/:/g, '_')}`
-  const theme = useResolvedTheme()
   const ref = useRef<HTMLElement>(null)
 
   useEffect(() => {
     if (!ref.current || showSource) return
     mermaid.initialize({
       startOnLoad: false,
-      theme: theme === 'light' ? 'default' : 'dark',
+      theme: 'default',
       fontFamily:
         'SuisseIntl, -apple-system, BlinkMacSystemFont, Helvetica, Arial, sans-serif',
     })
     mermaid.render(id, content).then(({ svg }) => {
       if (ref.current) ref.current.innerHTML = svg
     })
-  }, [content, theme, id, showSource])
+  }, [content, id, showSource])
 
   return (
     <>

@@ -54,7 +54,7 @@ const SelectRfdCombobox = ({
       <button
         onClick={toggleCombobox}
         aria-label="Select an RFD"
-        className="group flex items-center text-left"
+        className="t4eq-rfd-select group flex items-center text-left"
       >
         <div>
           <div className="text-mono-xs text-tertiary">
@@ -69,7 +69,7 @@ const SelectRfdCombobox = ({
             {currentRfd ? currentRfd.title : 'Select an RFD'}
           </div>
         </div>
-        <div className="text-tertiary border-secondary group-hover:bg-hover 600:ml-6 ml-2 flex h-[32px] w-[18px] items-center justify-center rounded border">
+        <div className="t4eq-rfd-select__toggle text-tertiary border-secondary 600:ml-6 ml-2 flex h-[32px] w-[18px] items-center justify-center rounded border">
           <Icon name="select-arrows" size={6} className="shrink-0" height={14} />
         </div>
       </button>
@@ -152,7 +152,7 @@ const ComboboxWrapper = ({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={EASE_OUT_QUAD}
-            className="bg-default 600:bg-transparent fixed top-0 right-0 bottom-0 left-0 cursor-default!"
+            className="t4eq-rfd-select__backdrop bg-default 600:bg-transparent fixed top-0 right-0 bottom-0 left-0 cursor-default!"
             onClick={() => handleDismiss()}
           />
           <motion.div
@@ -160,7 +160,7 @@ const ComboboxWrapper = ({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             transition={EASE_OUT_QUAD}
-            className="group 600:right-auto 600:top-[calc(var(--header-height)+8px)] 600:w-[16rem] absolute top-4 right-4 left-4"
+            className="t4eq-rfd-menu group 600:right-auto 600:top-[calc(var(--header-height)+8px)] 600:w-[16rem] absolute top-4 right-4 left-4"
             onKeyDown={(e) => {
               const lastIdx = matchedItems.length - 1
               if (e.key === 'Enter') {
@@ -189,7 +189,7 @@ const ComboboxWrapper = ({
             aria-controls="TODO"
             aria-expanded
           >
-            <div className="overlay bg-raise shadow-border focus-within:ring-accent-secondary flex rounded focus-within:ring-2">
+            <div className="t4eq-rfd-menu__search overlay bg-raise shadow-border focus-within:ring-accent-secondary flex rounded focus-within:ring-2">
               <input
                 ref={inputRef}
                 value={input}
@@ -217,7 +217,7 @@ const ComboboxWrapper = ({
             </div>
             <div
               ref={divRef}
-              className="shadow-menu bg-raise mt-3 max-h-[60vh] overflow-y-auto rounded"
+              className="t4eq-rfd-menu__list shadow-menu bg-raise mt-3 max-h-[60vh] overflow-y-auto rounded"
             >
               {matchedItems.length > 0 ? (
                 <ul
@@ -308,8 +308,9 @@ const ComboboxItem = memo(
         style={{ transform: `translateY(${offset}px)` }}
       >
         <li
+          data-selected={selected || undefined}
           className={cn(
-            'menu-item text-sans-sm border-secondary relative cursor-pointer border-b px-3 py-2 pr-6',
+            't4eq-rfd-menu__item menu-item text-sans-sm border-secondary relative cursor-pointer border-b px-3 py-2 pr-6',
             isLast && 'border-b-0',
             selected
               ? 'text-accent bg-accent hover:bg-accent-hover'

@@ -89,7 +89,7 @@ export default function Login() {
   return (
     <>
       <div
-        className="fixed h-screen w-screen opacity-80"
+        className="t4eq-login-backdrop fixed h-screen w-screen opacity-80"
         style={{
           background:
             'radial-gradient(200% 100% at 50% 100%, var(--surface-secondary) 0%, var(--surface-default) 100%)',
@@ -113,7 +113,7 @@ export default function Login() {
 
         <div className="border-t-secondary absolute bottom-0 h-(--header-height) w-full border-t"></div>
       </div>
-      <div className="shadow-modal bg-raise 600:w-[24rem] fixed top-1/2 left-1/2 w-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 space-y-3 rounded-lg p-6 text-center transition-all">
+      <div className="t4eq-login-card shadow-modal bg-raise 600:w-[24rem] fixed top-1/2 left-1/2 w-[calc(100%-2.5rem)] -translate-x-1/2 -translate-y-1/2 space-y-3 rounded-lg p-6 text-center transition-all">
         {!showEmailForm && (
           <>
             <h1 className="text-sans-2xl light:text-default text-accent mb-8">Sign in</h1>

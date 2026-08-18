@@ -243,7 +243,7 @@ const DialogContent = ({
           </div>
         </div>
         <a
-          href={`https://github.com/javier-varez/rfd/pull/${pullNumber}`}
+          href={`https://github.com/t4eq/rfd/pull/${pullNumber}`}
           target="_blank"
           rel="noreferrer"
         >
@@ -306,7 +306,7 @@ const DiscussionReviewGroup = ({
                 This discussion has no reviews or comments
               </p>
               <a
-                href={`https://github.com/javier-varez/rfd/pull/${pullNumber}`}
+                href={`https://github.com/t4eq/rfd/pull/${pullNumber}`}
                 className="text-mono-xs text-secondary border-default hover:bg-secondary mt-6 inline-block rounded border px-2 py-1"
                 target="_blank"
                 rel="noreferrer"

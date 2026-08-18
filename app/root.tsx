@@ -36,7 +36,6 @@ import {
   getLabels,
   provideNewRfdNumber,
 } from './services/rfd.server'
-import { useApplyTheme } from './stores/theme'
 import { buildMeta } from './utils/meta'
 
 export const meta: MetaFunction = () =>
@@ -110,22 +109,17 @@ export function ErrorBoundary() {
 }
 const queryClient = new QueryClient()
 
-// Set theme before first paint to prevent flash of wrong color scheme.
-// Mirrors logic in app/stores/theme.ts — must stay in sync.
-const themeInitScript = `(function(){try{var p=localStorage.getItem('theme-preference');if(p!=='dark'&&p!=='light'&&p!=='system')p='dark';var r=p==='system'?(matchMedia('(prefers-color-scheme: light)').matches?'light':'dark'):p;document.documentElement.dataset.theme=r;}catch(_){document.documentElement.dataset.theme='dark';}})();`
-
 const Layout = ({ children }: { children: React.ReactNode }) => (
-  <html lang="en" suppressHydrationWarning>
+  <html lang="en" data-theme="light">
     <head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width,initial-scale=1" />
-      <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       <Meta />
       <Links />
       <link rel="icon" href="/favicon.svg" />
       <link rel="icon" type="image/png" href="/favicon.png" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta name="color-scheme" content="dark light" />
+      <meta name="color-scheme" content="light" />
       {/* Use plausible analytics only on Vercel */}
       {process.env.NODE_ENV === 'production' && (
         <script defer data-domain="rfd.shared.oxide.computer" src="/js/viewscript.js" />
@@ -140,7 +134,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => (
 )
 
 export default function App() {
-  useApplyTheme()
   const { localMode } = useLoaderData<typeof loader>()
 
   return (

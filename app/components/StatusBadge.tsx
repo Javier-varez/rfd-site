@@ -6,29 +6,10 @@
  * Copyright Oxide Computer Company
  */
 
-import { Badge, type BadgeColor } from '@oxide/design-system/ui'
-
-const StatusBadge = ({ label }: { label: string }) => {
-  let color: BadgeColor | undefined
-
-  switch (label) {
-    case 'prediscussion':
-      color = 'purple'
-      break
-    case 'ideation':
-      color = 'notice'
-      break
-    case 'abandoned':
-      color = 'neutral'
-      break
-    case 'discussion':
-      color = 'blue'
-      break
-    default:
-      color = 'default'
-  }
-
-  return <Badge color={color}>{label}</Badge>
-}
+const StatusBadge = ({ label }: { label: string }) => (
+  <span className="t4eq-status" data-status={label}>
+    {label}
+  </span>
+)
 
 export default StatusBadge

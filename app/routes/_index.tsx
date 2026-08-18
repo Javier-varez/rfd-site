@@ -273,130 +273,132 @@ export default function Index() {
     <>
       {/* key makes the search dialog close on selection */}
       <Header key={pathname + hash} />
-      <div className="pt-4 pb-12">
-        <Container>
-          <div className="600:pt-[calc(299/1200*100%)] max-600:my-4 relative w-full">
-            <img
-              alt=""
-              src="/svgs/header-grid.svg"
-              className="light:invert light:opacity-40 max-600:hidden absolute top-0 -left-[2.7777777778%] z-0 h-auto w-[calc(100%+5.5555555556%)] max-w-none"
-              style={{
-                maskImage: 'url(/img/header-grid-mask.png)',
-                WebkitMaskImage: 'url(/img/header-grid-mask.png)',
-              }}
-            />
+      <main className="t4eq-home pb-12">
+        <section className="t4eq-hero">
+          <div className="t4eq-gridlines" aria-hidden="true">
+            <span />
+            <span />
+            <span />
+          </div>
+          <Container>
+            <div className="t4eq-hero__inner relative w-full">
+              <div className="t4eq-hero__content relative flex w-full flex-col items-start justify-start">
+                <h1 className="t4eq-hero__title text-raise">Requests for Discussion</h1>
 
-            <div className="1200:translate-0 600:absolute 600:top-1/2 600:-translate-y-1/2 1200:top-[97px] relative flex w-full flex-col items-center justify-start">
-              <h1 className="text-sans-2xl text-raise 800:text-sans-3xl text-center">
-                Requests for Discussion
-              </h1>
+                <div className="t4eq-hero__search relative mt-[22px] h-[48px] w-full rounded">
+                  <input
+                    value={input}
+                    ref={inputEl}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (matchedItems.length === 0 || !matchedItems) {
+                        return
+                      }
 
-              <div className="800:w-[calc(100%/36*16+4px)] relative mt-[22px] h-[40px] w-full rounded">
-                <input
-                  value={input}
-                  ref={inputEl}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (matchedItems.length === 0 || !matchedItems) {
-                      return
-                    }
+                      if (e.key === 'Enter') {
+                        navigate(
+                          `/rfd/${
+                            exactMatch
+                              ? exactMatch.formattedNumber
+                              : matchedItems[0].formattedNumber
+                          }`,
+                        )
+                      }
+                    }}
+                    className="mousetrap placeholder:text-tertiary text-sans-md bg-raise border-secondary focus:ring-accent-secondary h-full w-full rounded border p-3 focus:ring-2 focus:outline-offset-0 focus:outline-none"
+                    placeholder="Filter by title, number or author"
+                  />
+                  <div className="text-mono-xs text-default border-default pointer-events-none absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded border">
+                    /
+                  </div>
+                </div>
 
-                    if (e.key === 'Enter') {
-                      navigate(
-                        `/rfd/${
-                          exactMatch
-                            ? exactMatch.formattedNumber
-                            : matchedItems[0].formattedNumber
-                        }`,
-                      )
-                    }
-                  }}
-                  className="mousetrap placeholder:text-tertiary text-sans-md bg-raise border-secondary focus:ring-accent-secondary h-full w-full rounded border p-3 focus:ring-2 focus:outline-offset-0 focus:outline-none"
-                  placeholder="Filter by title, number or author"
-                />
-                <div className="text-mono-xs text-default border-default pointer-events-none absolute top-1/2 right-3 flex h-5 w-5 -translate-y-1/2 items-center justify-center rounded border">
-                  /
+                <div className="t4eq-hero__suggestions mt-3 flex w-full flex-col gap-2">
+                  {matchedAuthors && <SuggestedAuthors authors={matchedAuthors} />}
+                  {matchedLabels && <SuggestedLabels labels={matchedLabels} />}
+                  {exactMatch && matchedItems.length > 1 && <ExactMatch rfd={exactMatch} />}
                 </div>
               </div>
-
-              <div className="800:absolute 800:top-[120px] 800:mt-0 800:w-[calc(100%/36*16+4px)] mt-3 flex w-full flex-col gap-2">
-                {matchedAuthors && <SuggestedAuthors authors={matchedAuthors} />}
-                {matchedLabels && <SuggestedLabels labels={matchedLabels} />}
-                {exactMatch && matchedItems.length > 1 && <ExactMatch rfd={exactMatch} />}
-              </div>
-            </div>
-          </div>
-        </Container>
-        <Container className="max-600:flex-col 600:items-end 800:max-1200:mt-8 mt-4 mb-4 flex justify-between">
-          <FilterDropdown />
-          <div className="text-mono-xs text-default max-600:mt-3 flex">
-            <div className="text-tertiary mr-1 block">Results:</div>
-            <span data-testid="rfd-count">{matchedItems.length}</span>
-          </div>
-        </Container>
-        <Container
-          isGrid
-          className="text-mono-xs text-secondary bg-raise border-secondary 800:grid mb-3 hidden h-10 items-center rounded-lg border px-3"
-        >
-          <button
-            className="800:col-span-5 group col-span-12 flex cursor-pointer content-start pl-2 select-none"
-            data-testid="sort-number"
-            onClick={() => submitSortOrder('number')}
-          >
-            <div className="text-mono-xs group-hover:bg-tertiary -ml-1 flex items-center rounded p-1">
-              Number <span className="text-quaternary mx-1 inline-block">/</span> Title
-              <SortIcon isActive={sortAttr === 'number'} direction={sortDir} />
-            </div>
-          </button>
-
-          <div className="1000:col-span-2 col-span-3">State</div>
-
-          <button
-            className="text-mono-xs 1000:col-span-2 group col-span-3 flex cursor-pointer content-start select-none"
-            onClick={() => submitSortOrder('updated')}
-          >
-            <div className="group-hover:bg-tertiary -ml-1 flex items-center rounded p-1">
-              Updated
-              <SortIcon isActive={sortAttr === 'updated'} direction={sortDir} />
-            </div>
-          </button>
-
-          <div className="1000:block col-span-2 hidden">Labels</div>
-        </Container>
-
-        <div
-          ref={listRef}
-          className="relative"
-          style={{ height: rowVirtualizer.getTotalSize() }}
-          data-testid="rfd-list"
-        >
-          {rowVirtualizer.getVirtualItems().map((virtualRow) => {
-            const rfd = matchedItems[virtualRow.index]
-            return (
-              <RfdRow
-                key={rfd.formattedNumber}
-                rfd={rfd}
-                ref={rowVirtualizer.measureElement}
-                dataIndex={virtualRow.index}
-                offset={virtualRow.start - rowVirtualizer.options.scrollMargin}
-              />
-            )
-          })}
-        </div>
-        {matchedItems.length === 0 && (hasFilters || input) && (
-          <Container className="border-secondary mt-3 flex items-center justify-center border p-10">
-            <div className="m-4 flex max-w-[18rem] flex-col items-center text-center">
-              <div className="text-accent bg-accent mb-4 rounded-md p-1 leading-0">
-                <Icon name="document" size={16} />
-              </div>
-              <h3 className="text-sans-lg text-default">No RFDs match your filters</h3>
-              <Button onClick={clearAllFilters} variant="ghost" size="sm" className="mt-3">
-                Clear filters
-              </Button>
             </div>
           </Container>
-        )}
-      </div>
+        </section>
+        <section className="t4eq-results">
+          <Container className="max-600:flex-col 600:items-end 800:max-1200:mt-8 mt-4 mb-4 flex justify-between">
+            <FilterDropdown />
+            <div className="text-mono-xs text-default max-600:mt-3 flex">
+              <div className="text-tertiary mr-1 block">Results:</div>
+              <span data-testid="rfd-count">{matchedItems.length}</span>
+            </div>
+          </Container>
+          <Container
+            isGrid
+            className="text-mono-xs text-secondary bg-raise border-secondary 800:grid mb-3 hidden h-10 items-center rounded-lg border px-3"
+          >
+            <button
+              className="800:col-span-5 group col-span-12 flex cursor-pointer content-start pl-2 select-none"
+              data-testid="sort-number"
+              onClick={() => submitSortOrder('number')}
+            >
+              <div className="text-mono-xs group-hover:bg-tertiary -ml-1 flex items-center rounded p-1">
+                Number <span className="text-quaternary mx-1 inline-block">/</span> Title
+                <SortIcon isActive={sortAttr === 'number'} direction={sortDir} />
+              </div>
+            </button>
+
+            <div className="1000:col-span-2 col-span-3">State</div>
+
+            <button
+              className="text-mono-xs 1000:col-span-2 group col-span-3 flex cursor-pointer content-start select-none"
+              onClick={() => submitSortOrder('updated')}
+            >
+              <div className="group-hover:bg-tertiary -ml-1 flex items-center rounded p-1">
+                Updated
+                <SortIcon isActive={sortAttr === 'updated'} direction={sortDir} />
+              </div>
+            </button>
+
+            <div className="1000:block col-span-2 hidden">Labels</div>
+          </Container>
+
+          <div
+            ref={listRef}
+            className="relative"
+            style={{ height: rowVirtualizer.getTotalSize() }}
+            data-testid="rfd-list"
+          >
+            {rowVirtualizer.getVirtualItems().map((virtualRow) => {
+              const rfd = matchedItems[virtualRow.index]
+              return (
+                <RfdRow
+                  key={rfd.formattedNumber}
+                  rfd={rfd}
+                  ref={rowVirtualizer.measureElement}
+                  dataIndex={virtualRow.index}
+                  offset={virtualRow.start - rowVirtualizer.options.scrollMargin}
+                />
+              )
+            })}
+          </div>
+          {matchedItems.length === 0 && (hasFilters || input) && (
+            <Container className="border-secondary mt-3 flex items-center justify-center border p-10">
+              <div className="m-4 flex max-w-[18rem] flex-col items-center text-center">
+                <div className="text-accent bg-accent mb-4 rounded-md p-1 leading-0">
+                  <Icon name="document" size={16} />
+                </div>
+                <h3 className="text-sans-lg text-default">No RFDs match your filters</h3>
+                <Button
+                  onClick={clearAllFilters}
+                  variant="ghost"
+                  size="sm"
+                  className="mt-3"
+                >
+                  Clear filters
+                </Button>
+              </div>
+            </Container>
+          )}
+        </section>
+      </main>
     </>
   )
 }

@@ -6,17 +6,8 @@
  * Copyright Oxide Computer Company
  */
 
-import {
-  Contrast16Icon,
-  Monitor12Icon,
-  Moon12Icon,
-  NextArrow12Icon,
-  Profile16Icon,
-  Success12Icon,
-  Sun12Icon,
-} from '@oxide/design-system/icons/react'
+import { NextArrow12Icon, Profile16Icon } from '@oxide/design-system/icons/react'
 import { buttonStyle } from '@oxide/design-system/ui'
-import cn from 'classnames'
 import { useCallback, useState } from 'react'
 import { Link, useFetcher } from 'react-router'
 
@@ -25,7 +16,6 @@ import NewRfdButton from '~/components/NewRfdButton'
 import { useKey } from '~/hooks/use-key'
 import { useRootLoaderData } from '~/root'
 import type { RfdItem, RfdListItem } from '~/services/rfd.server'
-import { setThemePreference, useThemeStore, type ThemePreference } from '~/stores/theme'
 
 import * as DropdownMenu from './Dropdown'
 import { PublicBanner } from './PublicBanner'
@@ -66,22 +56,24 @@ export default function Header({ currentRfd }: { currentRfd?: RfdItem }) {
   useKey('mod+k', toggleSearchMenu, { global: true })
 
   return (
-    <div className="sticky top-0 z-60">
+    <div className="t4eq-header-shell sticky top-0 z-60">
       {!user && !localMode && <PublicBanner />}
-      <header className="bg-default border-secondary flex h-14 items-center justify-between border-b px-3 print:hidden">
-        <div className="flex space-x-3">
+      <header className="t4eq-header bg-default border-secondary flex h-14 items-center justify-between border-b px-3 print:hidden">
+        <div className="t4eq-header__start flex space-x-3">
           <Link
             to="/"
             prefetch="intent"
-            className="text-tertiary bg-secondary border-secondary elevation-1 hover:bg-hover flex h-8 w-8 items-center justify-center rounded border"
+            className="t4eq-wordmark text-tertiary bg-secondary border-secondary elevation-1 hover:bg-hover flex h-8 items-center justify-center rounded border"
             aria-label="Back to index"
           >
-            <Icon name="logs" size={16} />
+            <span>OXIDE</span>
+            <span aria-hidden="true">/</span>
+            <span>RFD</span>
           </Link>
           <SelectRfdCombobox isLoggedIn={!!user} currentRfd={currentRfd} rfds={rfds} />
         </div>
 
-        <div className="flex gap-2">
+        <div className="t4eq-header__actions flex gap-2">
           <button
             className="text-tertiary bg-secondary border-secondary elevation-1 hover:bg-hover flex h-8 w-8 items-center justify-center rounded border"
             onClick={toggleSearchMenu}
@@ -91,7 +83,6 @@ export default function Header({ currentRfd }: { currentRfd?: RfdItem }) {
           </button>
           <Search open={open} onClose={() => setOpen(false)} />
           {showCreateButton && <NewRfdButton />}
-          <ThemeDropdown />
 
           {user ? (
             <DropdownMenu.Root>
@@ -130,75 +121,5 @@ export default function Header({ currentRfd }: { currentRfd?: RfdItem }) {
         </div>
       </header>
     </div>
-  )
-}
-
-function ThemeRadioGroup() {
-  const { preference } = useThemeStore()
-  return (
-    <DropdownMenu.RadioGroup
-      value={preference}
-      onValueChange={(v) => setThemePreference(v as ThemePreference)}
-    >
-      <ThemeRadioItem
-        value="light"
-        icon={<Sun12Icon />}
-        label="Light"
-        selected={preference === 'light'}
-      />
-      <ThemeRadioItem
-        value="dark"
-        icon={<Moon12Icon />}
-        label="Dark"
-        selected={preference === 'dark'}
-      />
-      <ThemeRadioItem
-        value="system"
-        icon={<Monitor12Icon />}
-        label="System"
-        selected={preference === 'system'}
-      />
-    </DropdownMenu.RadioGroup>
-  )
-}
-
-function ThemeDropdown() {
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger
-        className="text-tertiary bg-secondary border-secondary elevation-1 hover:bg-hover flex h-8 w-8 items-center justify-center rounded border"
-        aria-label="Change theme"
-      >
-        <Contrast16Icon className="shrink-0" />
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content portal={false}>
-        <ThemeRadioGroup />
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
-  )
-}
-
-function ThemeRadioItem({
-  value,
-  icon,
-  label,
-  selected,
-}: {
-  value: ThemePreference
-  icon: React.ReactNode
-  label: string
-  selected: boolean
-}) {
-  return (
-    <DropdownMenu.RadioItem
-      value={value}
-      className={cn('DropdownMenuItem ox-menu-item', selected && 'is-selected')}
-    >
-      <span className="flex w-full items-center gap-2">
-        <span className="text-quaternary">{icon}</span>
-        <span>{label}</span>
-        {selected && <Success12Icon className="absolute right-3" />}
-      </span>
-    </DropdownMenu.RadioItem>
   )
 }

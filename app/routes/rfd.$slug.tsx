@@ -231,38 +231,40 @@ export default function Rfd() {
     <div ref={containerRef}>
       {/* key makes the search dialog close on selection */}
       <Header currentRfd={rfd} key={pathname + hash} />
-      <main className="800:mt-16 relative mt-12 pb-20 print:mt-0">
+      <main className="t4eq-document relative pb-20 print:mt-0">
         {inlineComments && user && pullNumber && (
           <RfdInlineComments pullNumber={pullNumber} />
         )}
         <RfdPreview currentRfd={number} nodeRef={containerRef} />
-        <Container isGrid className="page-header 800:mb-16 mb-12">
-          {state && (
-            <div className="800:col-start-2 1200:col-start-3 flex print:hidden">
-              <a href={rfd.discussion || ''} target="_blank" rel="noreferrer">
-                <StatusBadge label={state} />
-              </a>
-            </div>
-          )}
+        <section className="t4eq-document-hero">
+          <Container isGrid className="page-header">
+            {state && (
+              <div className="800:col-start-2 1200:col-start-3 flex print:hidden">
+                <a href={rfd.discussion || ''} target="_blank" rel="noreferrer">
+                  <StatusBadge label={state} />
+                </a>
+              </div>
+            )}
 
-          <div className="col-span-12 grid grid-cols-12 items-baseline">
-            <div className="text-sans-lg text-accent-tertiary 800:col-span-1 800:block 1200:col-span-2 hidden print:hidden">
-              <span className="1200:inline hidden">RFD</span> {number}
+            <div className="col-span-12 grid grid-cols-12 items-baseline">
+              <div className="t4eq-document-number text-sans-lg text-accent-tertiary 800:col-span-1 800:block 1200:col-span-2 hidden print:hidden">
+                <span className="1200:inline hidden">RFD</span> {number}
+              </div>
+              <div className="800:col-span-11 1200:col-span-10 col-span-12 flex items-baseline">
+                <h1 className="text-sans-2xl text-raise 600:pr-10 800:text-sans-3xl 1200:w-[calc(100%-var(--toc-width))] 1200:pr-16 w-full pr-4 text-balance print:pr-0 print:text-center">
+                  <span className="hidden print:block">RFD {number}</span> {title}
+                </h1>
+                {userIsInternal && (
+                  <div className="print:hidden">
+                    <MoreDropdown />
+                  </div>
+                )}
+              </div>
+              <AccessWarning groups={groups} />
             </div>
-            <div className="800:col-span-11 1200:col-span-10 col-span-12 flex items-baseline">
-              <h1 className="text-sans-2xl text-raise 600:pr-10 800:text-sans-3xl 1200:w-[calc(100%-var(--toc-width))] 1200:pr-16 w-full pr-4 text-balance print:pr-0 print:text-center">
-                <span className="hidden print:block">RFD {number}</span> {title}
-              </h1>
-              {userIsInternal && (
-                <div className="print:hidden">
-                  <MoreDropdown />
-                </div>
-              )}
-            </div>
-            <AccessWarning groups={groups} />
-          </div>
-        </Container>
-        <div className="border-secondary border-b print:m-auto print:max-w-300 print:rounded-lg print:border">
+          </Container>
+        </section>
+        <div className="t4eq-document-meta border-secondary border-b print:m-auto print:max-w-300 print:rounded-lg print:border">
           {state && (
             <PropertyRow
               label="State"
