@@ -10,7 +10,9 @@ import type { Config } from '@react-router/dev/config'
 import { vercelPreset } from '@vercel/react-router/vite'
 
 export default {
-  presets: [vercelPreset()],
+  // Containers use React Router's portable Node server build. Keep Vercel as the default
+  // so the existing deployment is unchanged.
+  presets: process.env.DEPLOY_TARGET === 'node' ? [] : [vercelPreset()],
   ssr: true,
   // we have few routes, so skip lazy route discovery (and its /__manifest
   // endpoint) and ship the full route manifest in the initial document

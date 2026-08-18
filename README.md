@@ -46,6 +46,42 @@ AsciiDoc renderer we've created, built on top of
 Our site is hosted on Vercel and this repo uses the Vercel adapter, but Remix can be
 deployed to [any JS runtime](https://remix.run/docs/en/main/discussion/runtimes).
 
+### Container and Kubernetes
+
+Build and test the production container locally:
+
+```sh
+docker build -t rfd-site:local .
+docker run --rm -p 3000:3000 --env-file .env.production rfd-site:local
+```
+
+The image runs as a non-root user, listens on port 3000, and exposes `GET /healthz` for
+Kubernetes probes. It expects the production settings listed under
+[Configuration](#configuration) at runtime; secrets are not built into the image.
+
+A baseline Deployment and ClusterIP Service are provided in
+[`k8s/rfd-site.yaml`](k8s/rfd-site.yaml). Create its environment Secret, publish the image,
+and deploy it with an immutable image tag:
+
+```sh
+# Omit GITHUB_PRIVATE_KEY from the env file and provide the PEM separately.
+kubectl create secret generic rfd-site-env \
+  --from-env-file=.env.production \
+  --from-file=GITHUB_PRIVATE_KEY=./github-app-private-key.pem
+
+docker tag rfd-site:local registry.example.com/rfd-site:${TAG}
+docker push registry.example.com/rfd-site:${TAG}
+
+kubectl apply -f k8s/rfd-site.yaml
+kubectl set image deployment/rfd-site \
+  rfd-site=registry.example.com/rfd-site:${TAG}
+kubectl rollout status deployment/rfd-site
+```
+
+Configure an Ingress or Gateway in the cluster to route external traffic to the `rfd-site`
+Service. The included CPU and memory settings are starting points and should be tuned from
+observed workload usage.
+
 ## Contributing
 
 This repo is public because others are interested in the RFD process and the tooling we've
