@@ -80,7 +80,7 @@ export async function fetchDiscussion(
   if (!any(userPermissions, [{ GetDiscussion: rfd }, 'GetDiscussionsAll'])) return null
 
   const reviews: ListReviewsResponseType = await octokit.rest.pulls.listReviews({
-    owner: 'oxidecomputer',
+    owner: 'javier-varez',
     repo: 'rfd',
     pull_number: pullNumber,
     per_page: 100,
@@ -97,7 +97,7 @@ export async function fetchDiscussion(
   let comments: ListReviewsCommentsType = []
   await octokit
     .paginate(octokit.rest.pulls.listReviewComments, {
-      owner: 'oxidecomputer',
+      owner: 'javier-varez',
       repo: 'rfd',
       pull_number: pullNumber,
       per_page: 100,
@@ -111,7 +111,7 @@ export async function fetchDiscussion(
     })
 
   const prComments = await octokit.paginate(octokit.rest.issues.listComments, {
-    owner: 'oxidecomputer',
+    owner: 'javier-varez',
     repo: 'rfd',
     issue_number: pullNumber,
     per_page: 100,
