@@ -176,6 +176,8 @@ html[data-theme='light'] {
   --content-accent: var(--t4eq-offwhite);
   --content-accent-secondary: var(--t4eq-offwhite);
   --content-accent-tertiary: var(--t4eq-offwhite);
+  --surface-accent: rgb(245 245 244 / 18%);
+  --surface-accent-hover: rgb(245 245 244 / 26%);
   --stroke-accent: var(--t4eq-offwhite);
   --stroke-accent-secondary: var(--t4eq-offwhite);
 }
